@@ -1,0 +1,9 @@
+*.o
+*.a
+*.mod
+*.i90
+
+src/*_test
+
+examples/*_test
+examples/*.yaml
