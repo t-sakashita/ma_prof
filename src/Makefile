@@ -1,3 +1,7 @@
+# Copyright (C) 2014 RIKEN AICS
+# This library is released under the terms of the MIT license.
+# http://fiber-miniapp.mit-license.org/
+
 MAX_SECTIONS ?= 20
 OUTPUT ?= maprof_output.yaml
 #OUTPUT ?= stdout
