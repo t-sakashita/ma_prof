@@ -1,3 +1,7 @@
+# Copyright (C) 2014 RIKEN AICS
+# This library is released under the terms of the MIT license.
+# http://fiber-miniapp.mit-license.org/
+
 MAX_SECTIONS ?= 20
 OUTPUT ?= maprof_output.yaml
 #OUTPUT ?= stdout
@@ -7,19 +11,19 @@ PFLAGS :=
 ifdef MAPROF_F
 PFLAGS += -DMAPROF_FC='"$($(word 1,$(MAPROF_F)))"' \
           -DMAPROF_FC_VERSION='"$(shell ./check_version.sh $($(word 1,$(MAPROF_F))))"' \
-		  -DMAPROF_FFLAGS='"$($(word 2,$(MAPROF_F)))"'
+		  -DMAPROF_FFLAGS='"$(subst \\,\,$(subst ",\",$($(word 2,$(MAPROF_F)))))"'
 endif
 
 ifdef MAPROF_C
 PFLAGS += -DMAPROF_CC='"$($(word 1,$(MAPROF_C)))"' \
           -DMAPROF_CC_VERSION='"$(shell ./check_version.sh $($(word 1,$(MAPROF_C))))"' \
-		  -DMAPROF_CFLAGS='"$($(word 2,$(MAPROF_C)))"'
+		  -DMAPROF_CFLAGS='"$(subst \\,\,$(subst ",\",$($(word 2,$(MAPROF_C)))))"'
 endif
 
 ifdef MAPROF_CXX
 PFLAGS += -DMAPROF_CXX='"$($(word 1,$(MAPROF_CXX)))"' \
           -DMAPROF_CXX_VERSION='"$(shell ./check_version.sh $($(word 1,$(MAPROF_CXX))))"' \
-		  -DMAPROF_CXXFLAGS='"$($(word 2,$(MAPROF_CXX)))"'
+		  -DMAPROF_CXXFLAGS='"$(subst \\,\,$(subst ",\",$($(word 2,$(MAPROF_CXX)))))"'
 ifndef MAPROF_C
 CC = $($(word 1,$(MAPROF_CXX)))
 CFLAGS = $($(word 2,$(MAPROF_CXX)))

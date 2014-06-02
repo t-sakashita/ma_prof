@@ -1,3 +1,7 @@
+! Copyright (C) 2014 RIKEN AICS
+! This library is released under the terms of the MIT license.
+! http://fiber-miniapp.mit-license.org/
+
 module mod_maprof
   use iso_c_binding
 #ifdef USE_MPI
