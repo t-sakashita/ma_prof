@@ -13,6 +13,7 @@
 #define MAPROF_H
 
 #include <stdio.h>
+#include "config.h"
 
 /* ---------- measuring ---------- */
 

@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include "config.h"
 #include "maprof_proc.h"
 
 #define BUF_SIZE 1024

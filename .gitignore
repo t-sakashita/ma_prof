@@ -4,6 +4,7 @@
 *.i90
 
 src/*_test
+src/config.h
 
 examples/*_test
 examples/*.yaml
