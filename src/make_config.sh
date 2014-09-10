@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Copyright (C) 2014 RIKEN AICS
+# This library is released under the terms of the MIT license.
+# http://fiber-miniapp.mit-license.org/
+
 CONFIG=config.h
 
 DEFAULT_MAX_SECTIONS=20
