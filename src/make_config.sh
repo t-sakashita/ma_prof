@@ -9,7 +9,22 @@ CONFIG=config.h
 DEFAULT_MAX_SECTIONS=20
 DEFAULT_OUTPUT=maprof_output.yaml
 
-CompilerMacros() {
+FUJITSU_AUTO_PARALLEL=0
+
+CheckFujitsuAutoParallel() {
+        case $1 in
+                *frt|*fcc|*FCC|*frtpx|*fccpx|*FCCpx)
+                        echo $2 | grep -q -E '(\s|^)-K(\S+,)?parallel(\s|,|$)'
+                        if [ $? -eq 0 ]; then
+                                FUJITSU_AUTO_PARALLEL=1
+                        fi
+                        ;;
+                *)
+                        ;;
+        esac
+}
+
+SetCompilerMacros() {
         case $1 in
                 C)
                         m_compiler="MAPROF_CC"
@@ -36,6 +51,8 @@ CompilerMacros() {
 	eval flags=\"\$$3\"
 	version=`./check_version.sh "$compiler"`
 
+        CheckFujitsuAutoParallel "$compiler" "$flags"
+
         # " -> \"
  	compiler=`echo $compiler  | sed -e 's/[\]*"/\\\"/g'`
  	flags=`echo $flags  | sed -e 's/[\]*"/\\\"/g'`
@@ -52,18 +69,22 @@ if [ -s $CONFIG ]; then
 fi
 
 if [ "$MAPROF_C" != "" ]; then
-        CompilerMacros "C" $MAPROF_C
+        SetCompilerMacros "C" $MAPROF_C
 fi
 
 if [ "$MAPROF_F" != "" ]; then
-        CompilerMacros "F" $MAPROF_F
+        SetCompilerMacros "F" $MAPROF_F
 fi
 
 if [ "$MAPROF_CXX" != "" ]; then
-        CompilerMacros "CXX" $MAPROF_CXX
+        SetCompilerMacros "CXX" $MAPROF_CXX
 fi
 
-echo "#define MAPROF_MAX_SECTIONS ${MAX_SECTIONS:-$DEFAULT_MAX_SECTIONS}" >> $CONFIG
+cat << EOF >> $CONFIG
+#define MAPROF_MAX_SECTIONS ${MAX_SECTIONS:-$DEFAULT_MAX_SECTIONS}
+#define MAPROF_OUTPUT "${OUTPUT:-$DEFAULT_OUTPUT}"
+EOF
 
-echo "#define MAPROF_OUTPUT \"${OUTPUT:-$DEFAULT_OUTPUT}\"" >> $CONFIG
-
+if [ $FUJITSU_AUTO_PARALLEL -eq 1 ]; then
+        echo "#define FUJITSU_AUTO_PARALLEL" >> $CONFIG
+fi
