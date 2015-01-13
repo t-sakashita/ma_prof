@@ -14,7 +14,7 @@ FUJITSU_AUTO_PARALLEL=0
 CheckFujitsuAutoParallel() {
         case $1 in
                 *frt|*fcc|*FCC|*frtpx|*fccpx|*FCCpx)
-                        echo $2 | grep -q -E '(\s|^)-K(\S+,)?parallel(\s|,|$)'
+                        echo $2 | grep -q -E '(\s|^)-K(\S+,)?(parallel|visimpact)(\s|,|$)'
                         if [ $? -eq 0 ]; then
                                 FUJITSU_AUTO_PARALLEL=1
                         fi
