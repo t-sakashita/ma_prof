@@ -438,8 +438,6 @@ subroutine maprof_setup(app_name, app_version)
 !$ use omp_lib
   character(*), intent(in) :: app_name, app_version
 
-  integer :: nt = 1
-
   interface
     subroutine c_setup(app_name, app_version) bind(c, name="maprof_setup")
       use iso_c_binding
@@ -452,8 +450,7 @@ subroutine maprof_setup(app_name, app_version)
     end subroutine maprof_set_num_threads
   end interface
 
-!$ nt = omp_get_max_threads()
-  call maprof_set_num_threads(nt)
+!$ call maprof_set_num_threads(omp_get_max_threads())
 
   call c_setup(c_string(app_name), c_string(app_version))
 

@@ -80,6 +80,17 @@ static int get_num_threads()
   if (N_threads > 0) return N_threads;
 #ifdef _OPENMP
   return omp_get_max_threads();
+#elif defined FUJITSU_AUTO_PARALLEL
+  {
+    int n = 0;
+    char* s = getenv("PARALLEL");
+    if (s) n = atoi(s);
+    if (n > 0) {
+      return n;
+    } else {
+      return 1;
+    }
+  }
 #else
   return 1;
 #endif
