@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Copyright (C) 2014 RIKEN AICS
+# Copyright (C) 2014-2015 RIKEN AICS
 # This library is released under the terms of the MIT license.
-# http://fiber-miniapp.mit-license.org/
+# http://fiber-miniapp.mit-license.org/2014-2015
 
 if [ $# -ne 1 ]
 then
