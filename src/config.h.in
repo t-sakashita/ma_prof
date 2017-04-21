@@ -1,0 +1,2 @@
+#define MAPROF_MAX_SECTIONS 20
+#define MAPROF_OUTPUT "maprof_output.yaml"
